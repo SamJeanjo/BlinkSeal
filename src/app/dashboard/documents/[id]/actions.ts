@@ -11,7 +11,13 @@ function makeToken() {
 
 export async function createShareLink(documentId: string, formData: FormData) {
   const appUser = await requireCurrentUser();
+  const title = formData.get("title")?.toString().trim() || null;
+  const expirationEnabled = formData.get("expiration_enabled") === "on";
   const expires = formData.get("expires_at")?.toString();
+  const viewLimitEnabled = formData.get("view_limit_enabled") === "on";
+  const viewLimitValue = Number(formData.get("view_limit")?.toString() || "");
+  const oneTimeAccess = formData.get("one_time_access") === "on";
+  const allowDownload = formData.get("allow_download") === "on";
   const supabase = getSupabaseAdmin();
 
   const { data: document, error: docError } = await supabase
@@ -28,8 +34,12 @@ export async function createShareLink(documentId: string, formData: FormData) {
   const { error } = await supabase.from("share_links").insert({
     document_id: documentId,
     token: makeToken(),
-    expires_at: expires ? new Date(expires).toISOString() : null,
-    revoked: false
+    title,
+    expires_at: expirationEnabled && expires ? new Date(expires).toISOString() : null,
+    revoked: false,
+    view_limit: oneTimeAccess ? 1 : viewLimitEnabled && Number.isFinite(viewLimitValue) && viewLimitValue > 0 ? viewLimitValue : null,
+    one_time_access: oneTimeAccess,
+    allow_download: allowDownload
   });
 
   if (error) throw error;

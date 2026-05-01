@@ -16,8 +16,12 @@ export type ShareLinkRecord = {
   id: string;
   document_id: string;
   token: string;
+  title: string | null;
   expires_at: string | null;
   revoked: boolean;
+  view_limit: number | null;
+  one_time_access: boolean;
+  allow_download: boolean;
   created_at: string;
 };
 

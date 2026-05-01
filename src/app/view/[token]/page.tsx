@@ -19,12 +19,19 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
 
   const { data: shareLink } = await supabase
     .from("share_links")
-    .select("*, documents(*)")
+    .select("*, documents(*), view_events(id)")
     .eq("token", token)
     .maybeSingle();
 
   if (!shareLink || shareLink.revoked || (shareLink.expires_at && new Date(shareLink.expires_at).getTime() < Date.now())) {
     return <Unavailable />;
+  }
+
+  const priorViewCount = shareLink.view_events?.length ?? 0;
+  const viewLimit = shareLink.one_time_access ? 1 : shareLink.view_limit;
+
+  if (viewLimit && priorViewCount >= viewLimit) {
+    return <Unavailable message="This link has reached its access limit. Please request a new link from the sender." />;
   }
 
   const document = shareLink.documents;
@@ -72,10 +79,12 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
                 Secure access granted - Expires {formatDate(shareLink.expires_at)}
               </p>
             </div>
-            <Button href={signed.signedUrl} variant="outline" className="h-9" >
-              <Download className="h-4 w-4" />
-              Download
-            </Button>
+            {shareLink.allow_download && (
+              <Button href={signed.signedUrl} variant="outline" className="h-9" >
+                <Download className="h-4 w-4" />
+                Download
+              </Button>
+            )}
           </div>
         </div>
 
@@ -87,7 +96,7 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
             ) : (
               <iframe title="Document preview" src={signed.signedUrl} className="h-[78vh] w-full rounded-lg bg-slate-50" />
             )
-          ) : (
+          ) : shareLink.allow_download ? (
             <div className="flex min-h-[360px] flex-col items-center justify-center text-center">
               <Eye className="mb-4 h-10 w-10 text-slate-400" />
               <h2 className="mb-2 text-xl font-semibold text-slate-900">This file is download-only</h2>
@@ -97,6 +106,15 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
               <Button href={signed.signedUrl} variant="blue">
                 Download file
               </Button>
+            </div>
+          ) : (
+            <div className="flex min-h-[360px] flex-col items-center justify-center text-center">
+              <Eye className="mb-4 h-10 w-10 text-slate-400" />
+              <h2 className="mb-2 text-xl font-semibold text-slate-900">Preview unavailable</h2>
+              <p className="max-w-md text-sm text-slate-500">
+                This file type cannot be previewed in the browser and downloads are disabled for this link.
+                This access has still been recorded.
+              </p>
             </div>
           )}
         </div>

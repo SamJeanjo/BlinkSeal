@@ -2,13 +2,19 @@ import Link from "next/link";
 import {
   ArrowLeft,
   BarChart3,
+  Check,
   ChevronUp,
+  Clock3,
+  Download,
   Eye,
   FileText,
   Globe2,
+  KeyRound,
+  ListChecks,
   Monitor,
   Shield,
   Smartphone,
+  Zap,
   Users
 } from "lucide-react";
 import { createShareLink, recordTestView, revokeShareLink } from "@/app/dashboard/documents/[id]/actions";
@@ -31,8 +37,12 @@ type ViewEvent = {
 type ShareLink = {
   id: string;
   token: string;
+  title: string | null;
   expires_at: string | null;
   revoked: boolean;
+  view_limit: number | null;
+  one_time_access: boolean;
+  allow_download: boolean;
   created_at: string;
   view_events?: ViewEvent[];
 };
@@ -142,10 +152,11 @@ export default async function DocumentDetailPage({ params }: { params: Promise<{
 
       <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-start">
         <div className="max-w-[430px]">
-          <h1 className="text-4xl font-semibold tracking-tight text-slate-950">Access Proof</h1>
+          <h1 className="text-4xl font-semibold tracking-tight text-slate-950">{link ? "Access Proof" : "Link Settings"}</h1>
           <p className="mt-3 text-lg leading-7 text-[#64748B]">
-            Access activity is system-logged automatically and appended in real time.
-            Records are preserved for compliance, audit, and evidentiary review.
+            {link
+              ? "Access activity is system-logged automatically and appended in real time. Records are preserved for compliance, audit, and evidentiary review."
+              : "Set the terms of access before creating a client link. For legal workflows, this deliberate review step is worth keeping."}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -173,7 +184,7 @@ export default async function DocumentDetailPage({ params }: { params: Promise<{
       <section className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
         <div className="flex items-start justify-between gap-5">
           <div>
-            <h2 className="text-2xl font-semibold text-slate-950">{document.file_name}</h2>
+            <h2 className="text-2xl font-semibold text-slate-950">{link?.title || document.file_name}</h2>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
               <Shield className="h-4 w-4" />
               Client View (No Watermark)
@@ -195,23 +206,124 @@ export default async function DocumentDetailPage({ params }: { params: Promise<{
             </details>
             <div className="mt-5 flex flex-wrap gap-3">
               <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">Expiration: {formatDate(link.expires_at)}</span>
-              <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">Download: Allowed</span>
+              <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">Download: {link.allow_download ? "Allowed" : "Button hidden"}</span>
               <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">Watermark: Off</span>
-              <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">View limit: Unlimited</span>
+              <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">View limit: {link.view_limit ?? "Unlimited"}</span>
             </div>
           </div>
         ) : (
-          <form action={createAction} className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-end">
-            <label className="flex-1">
-              <span className="mb-1.5 block text-sm font-semibold text-slate-700">Expiration date</span>
-              <input
-                name="expires_at"
-                type="datetime-local"
-                className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/15"
-              />
-            </label>
-            <Button type="submit" variant="blue" className="h-11">
-              Generate client link
+          <form action={createAction} className="mt-8 space-y-8">
+            <div className="mx-auto mb-4 flex max-w-lg items-center justify-center gap-3 text-sm font-semibold">
+              <StepBadge complete>1</StepBadge>
+              <span className="text-slate-500">Upload</span>
+              <span className="h-px w-14 bg-slate-200" />
+              <StepBadge active>2</StepBadge>
+              <span className="text-slate-950">Settings</span>
+              <span className="h-px w-14 bg-slate-200" />
+              <StepBadge>3</StepBadge>
+              <span className="text-slate-500">Share & Track</span>
+            </div>
+
+            <div className="rounded-2xl bg-slate-50 p-5">
+              <div className="flex items-center gap-4">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-white">
+                  <Check className="h-5 w-5 text-emerald-600" />
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-lg font-semibold text-slate-950">{document.file_name}</p>
+                  <p className="text-sm text-slate-500">
+                    {document.file_size ? `${(document.file_size / 1024).toFixed(1)} KB` : "Uploaded"}{" "}
+                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+                      Preview: {document.file_type?.startsWith("image/") ? "Image" : document.file_type === "application/pdf" ? "PDF" : "File"}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <section className="rounded-2xl border border-slate-200 bg-white p-6">
+              <h3 className="text-xl font-semibold text-slate-950">Link Details</h3>
+              <label className="mt-6 block">
+                <span className="mb-2 block text-sm font-semibold text-slate-950">Title (optional)</span>
+                <input
+                  name="title"
+                  placeholder="e.g., Signed Engagement Letter"
+                  className="h-12 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/15"
+                />
+              </label>
+            </section>
+
+            <section className="rounded-2xl border border-slate-200 bg-white p-6">
+              <h3 className="mb-6 text-xl font-semibold text-slate-950">Access Rules</h3>
+              <div className="space-y-6">
+                <AccessRule
+                  icon={<Clock3 className="h-5 w-5 text-amber-500" />}
+                  tone="bg-amber-50"
+                  title="Expiration"
+                  body="Stops working after the selected date"
+                  control={
+                    <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center">
+                      <input type="checkbox" name="expiration_enabled" className="h-5 w-5 accent-[#0066CC]" />
+                      <input
+                        name="expires_at"
+                        type="datetime-local"
+                        className="h-10 rounded-lg border border-slate-200 px-3 text-sm"
+                      />
+                    </div>
+                  }
+                />
+                <AccessRule
+                  icon={<Eye className="h-5 w-5 text-[#525F7F]" />}
+                  tone="bg-slate-100"
+                  title="View limit"
+                  body="Maximum total opens across all recipients"
+                  control={
+                    <div className="flex items-center gap-2">
+                      <input type="checkbox" name="view_limit_enabled" className="h-5 w-5 accent-[#0066CC]" />
+                      <input
+                        name="view_limit"
+                        type="number"
+                        min={1}
+                        placeholder="10"
+                        className="h-10 w-20 rounded-lg border border-slate-200 px-3 text-sm"
+                      />
+                    </div>
+                  }
+                />
+                <AccessRule
+                  icon={<Zap className="h-5 w-5 text-[#525F7F]" />}
+                  tone="bg-slate-100"
+                  title="One-time access"
+                  body="Automatically blocks the link after the first successful open"
+                  control={<input type="checkbox" name="one_time_access" className="h-5 w-5 accent-[#0066CC]" />}
+                />
+                <AccessRule
+                  icon={<KeyRound className="h-5 w-5 text-red-500" />}
+                  tone="bg-red-50"
+                  title="Passcode Protection"
+                  body="Planned next: require a passcode before the viewer loads"
+                  control={<span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-400">Next</span>}
+                />
+                <AccessRule
+                  icon={<Download className="h-5 w-5 text-emerald-600" />}
+                  tone="bg-emerald-50"
+                  title="Allow Download"
+                  body="Show a download button in the secure viewer"
+                  control={<input type="checkbox" name="allow_download" defaultChecked className="h-5 w-5 accent-[#111827]" />}
+                />
+                <AccessRule
+                  icon={<Globe2 className="h-5 w-5 text-[#525F7F]" />}
+                  tone="bg-slate-100"
+                  title="IP Allowlist"
+                  body="Planned next: restrict access to specific IP addresses"
+                  control={<span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-400">Next</span>}
+                />
+              </div>
+            </section>
+
+            <Button type="submit" variant="blue" className="h-14 w-full rounded-lg text-base font-semibold">
+              Create Secure Link
+              <ListChecks className="h-5 w-5" />
             </Button>
           </form>
         )}
@@ -228,7 +340,8 @@ export default async function DocumentDetailPage({ params }: { params: Promise<{
                 </SummaryRow>
                 <SummaryRow label="Created">{formatFullDate(link.created_at)}</SummaryRow>
                 <SummaryRow label="Expiration">{formatDate(link.expires_at)}</SummaryRow>
-                <SummaryRow label="View Limit">Unlimited</SummaryRow>
+                <SummaryRow label="View Limit">{link.view_limit ?? "Unlimited"}</SummaryRow>
+                <SummaryRow label="Download Button">{link.allow_download ? "Shown" : "Hidden"}</SummaryRow>
               </div>
               <div>
                 <p className="text-sm text-slate-500">Last Activity</p>
@@ -352,6 +465,53 @@ export default async function DocumentDetailPage({ params }: { params: Promise<{
           </section>
         </>
       )}
+    </div>
+  );
+}
+
+function StepBadge({
+  children,
+  active,
+  complete
+}: {
+  children: React.ReactNode;
+  active?: boolean;
+  complete?: boolean;
+}) {
+  return (
+    <span
+      className={`grid h-9 w-9 place-items-center rounded-full ${
+        complete ? "bg-emerald-500 text-white" : active ? "bg-[#0066CC] text-white" : "bg-slate-200 text-slate-500"
+      }`}
+    >
+      {complete ? <Check className="h-5 w-5" /> : children}
+    </span>
+  );
+}
+
+function AccessRule({
+  icon,
+  tone,
+  title,
+  body,
+  control
+}: {
+  icon: React.ReactNode;
+  tone: string;
+  title: string;
+  body: string;
+  control: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex items-center gap-4">
+        <span className={`grid h-11 w-11 flex-none place-items-center rounded-lg ${tone}`}>{icon}</span>
+        <div>
+          <p className="font-semibold text-slate-950">{title}</p>
+          <p className="text-sm text-[#64748B]">{body}</p>
+        </div>
+      </div>
+      <div className="sm:min-w-[260px] sm:text-right">{control}</div>
     </div>
   );
 }
