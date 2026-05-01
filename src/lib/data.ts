@@ -1,6 +1,6 @@
 import "server-only";
 
-import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase/admin";
 
 export type DocumentRecord = {
   id: string;
@@ -31,6 +31,10 @@ export type ViewEventRecord = {
 };
 
 export async function getUserDocuments(ownerId: string) {
+  if (!hasSupabaseAdminConfig()) {
+    return [];
+  }
+
   const supabase = getSupabaseAdmin();
   const { data, error } = await supabase
     .from("documents")
@@ -43,6 +47,10 @@ export async function getUserDocuments(ownerId: string) {
 }
 
 export async function getDocumentForOwner(documentId: string, ownerId: string) {
+  if (!hasSupabaseAdminConfig()) {
+    throw new Error("Supabase is not configured yet.");
+  }
+
   const supabase = getSupabaseAdmin();
   const { data, error } = await supabase
     .from("documents")

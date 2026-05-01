@@ -2,7 +2,7 @@ import "server-only";
 
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase/admin";
 
 export type AppUser = {
   id: string;
@@ -24,6 +24,16 @@ export async function getCurrentUser() {
     [clerkUser?.firstName, clerkUser?.lastName].filter(Boolean).join(" ") ||
     clerkUser?.username ||
     null;
+
+  if (!hasSupabaseAdminConfig()) {
+    return {
+      id: session.userId,
+      clerk_user_id: session.userId,
+      email,
+      name,
+      created_at: new Date().toISOString()
+    } satisfies AppUser;
+  }
 
   const supabase = getSupabaseAdmin();
 
