@@ -5,6 +5,8 @@ import { BrandMark } from "@/components/blinkseal/logo";
 import { Button } from "@/components/blinkseal/button";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const hasClerk = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+
   return (
     <div className="min-h-screen bg-[#F9FAFB]">
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
@@ -21,7 +23,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <Plus className="h-4 w-4" />
               <span className="hidden sm:inline">Create link</span>
             </Button>
-            <UserButton afterSignOutUrl="/" />
+            {hasClerk && <UserButton afterSignOutUrl="/" />}
           </div>
         </div>
       </header>

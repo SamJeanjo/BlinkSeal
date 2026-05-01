@@ -19,16 +19,21 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  const body = <body>{children}</body>;
+
   return (
-    <ClerkProvider
-      publishableKey={
-        process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
-        "pk_test_ZHVtbXkuY2xlcmsuYWNjb3VudHMuZGV2JA"
-      }
-    >
+    clerkPublishableKey ? (
+      <ClerkProvider publishableKey={clerkPublishableKey}>
+        <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+          {body}
+        </html>
+      </ClerkProvider>
+    ) : (
       <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-        <body>{children}</body>
+        {body}
       </html>
-    </ClerkProvider>
+    )
   );
 }
