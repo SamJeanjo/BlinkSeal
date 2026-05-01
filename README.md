@@ -109,9 +109,13 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 
 NEXT_PUBLIC_APP_URL=
+
+BLINKSEAL_CERT_PRIVATE_KEY_B64=
+BLINKSEAL_CERT_PUBLIC_KEY_B64=
 ```
 
 Treat `SUPABASE_SERVICE_ROLE_KEY` like a password. It bypasses RLS and must never be imported into client components or exposed with a `NEXT_PUBLIC_` prefix.
+Treat `BLINKSEAL_CERT_PRIVATE_KEY_B64` the same way. It signs court-ready certificate payloads and must remain server-side only.
 
 ## Test Flow
 

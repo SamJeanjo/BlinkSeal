@@ -2,7 +2,9 @@
 
 import { randomBytes } from "node:crypto";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { requireCurrentUser } from "@/lib/auth/getCurrentUser";
+import { issueCertificateForLink } from "@/lib/certificates";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 
 function makeToken() {
@@ -91,12 +93,21 @@ export async function recordTestView(documentId: string, shareLinkId: string) {
 
   const { error } = await supabase.from("view_events").insert({
     share_link_id: shareLinkId,
+    event_type: "open",
     ip_address: "Owner test",
     user_agent: "BlinkSeal test event",
-    referrer: "dashboard"
+    referrer: "dashboard",
+    details: { source: "owner_test" }
   });
 
   if (error) throw error;
   revalidatePath(`/dashboard/documents/${documentId}`);
   revalidatePath("/dashboard");
+}
+
+export async function issueAccessCertificate(documentId: string, shareLinkId: string) {
+  const appUser = await requireCurrentUser();
+  const certificateNumber = await issueCertificateForLink(documentId, shareLinkId, appUser.id);
+  revalidatePath(`/dashboard/documents/${documentId}`);
+  redirect(`/verify/${certificateNumber}`);
 }

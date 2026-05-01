@@ -9,6 +9,7 @@ export type DocumentRecord = {
   file_type: string | null;
   file_size: number | null;
   storage_path: string;
+  sha256: string | null;
   created_at: string;
 };
 
@@ -32,6 +33,8 @@ export type ViewEventRecord = {
   ip_address: string | null;
   user_agent: string | null;
   referrer: string | null;
+  event_type: string;
+  details: Record<string, unknown>;
 };
 
 export async function getUserDocuments(ownerId: string) {

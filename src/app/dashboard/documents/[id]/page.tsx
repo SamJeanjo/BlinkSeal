@@ -17,7 +17,7 @@ import {
   Zap,
   Users
 } from "lucide-react";
-import { createShareLink, recordTestView, revokeShareLink } from "@/app/dashboard/documents/[id]/actions";
+import { createShareLink, issueAccessCertificate, recordTestView, revokeShareLink } from "@/app/dashboard/documents/[id]/actions";
 import { Button } from "@/components/blinkseal/button";
 import { CopyLink } from "@/components/blinkseal/copy-link";
 import { ProofToolbar } from "@/components/blinkseal/proof-toolbar";
@@ -136,6 +136,7 @@ export default async function DocumentDetailPage({ params }: { params: Promise<{
   const createAction = createShareLink.bind(null, document.id);
   const revokeAction = link ? revokeShareLink.bind(null, document.id, link.id) : null;
   const testAction = link ? recordTestView.bind(null, document.id, link.id) : null;
+  const certificateAction = link ? issueAccessCertificate.bind(null, document.id, link.id) : null;
   const active = Boolean(link && !link.revoked && !isExpired(link.expires_at));
   const uniqueOpens = countUnique(events);
   const lastEvent = events[0];
@@ -168,6 +169,17 @@ export default async function DocumentDetailPage({ params }: { params: Promise<{
             </form>
           )}
           {link && <ProofToolbar shareUrl={shareUrl} fileName={document.file_name} />}
+          {certificateAction && (
+            <form action={certificateAction}>
+              <button
+                type="submit"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-950 shadow-sm transition-colors hover:bg-slate-50 focus-ring"
+              >
+                <Shield className="h-4 w-4" />
+                Issue Verified Certificate
+              </button>
+            </form>
+          )}
           {active && revokeAction && (
             <form action={revokeAction}>
               <button

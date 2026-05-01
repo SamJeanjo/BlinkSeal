@@ -1,6 +1,6 @@
 "use server";
 
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireCurrentUser } from "@/lib/auth/getCurrentUser";
@@ -36,6 +36,7 @@ export async function uploadDocument(formData: FormData) {
   const supabase = getSupabaseAdmin();
   const storagePath = `${appUser.id}/${randomUUID()}-${safeName(file.name)}`;
   const bytes = await file.arrayBuffer();
+  const fileSha256 = createHash("sha256").update(Buffer.from(bytes)).digest("hex");
 
   const { error: uploadError } = await supabase.storage
     .from(DOCUMENT_BUCKET)
@@ -55,7 +56,8 @@ export async function uploadDocument(formData: FormData) {
       file_name: file.name,
       file_type: file.type || "application/octet-stream",
       file_size: file.size,
-      storage_path: storagePath
+      storage_path: storagePath,
+      sha256: fileSha256
     })
     .select("id")
     .single();

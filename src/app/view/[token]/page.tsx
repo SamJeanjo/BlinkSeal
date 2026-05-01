@@ -45,12 +45,14 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
 
   await supabase.from("view_events").insert({
     share_link_id: shareLink.id,
+    event_type: "open",
     ip_address:
       requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim() ??
       requestHeaders.get("x-real-ip") ??
       null,
     user_agent: requestHeaders.get("user-agent"),
-    referrer: requestHeaders.get("referer")
+    referrer: requestHeaders.get("referer"),
+    details: { viewer: "public" }
   });
 
   const isEmbeddable = document.file_type === "application/pdf" || document.file_type?.startsWith("image/");
@@ -80,7 +82,7 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
               </p>
             </div>
             {shareLink.allow_download && (
-              <Button href={signed.signedUrl} variant="outline" className="h-9" >
+              <Button href={`/download/${token}`} variant="outline" className="h-9" >
                 <Download className="h-4 w-4" />
                 Download
               </Button>
@@ -103,7 +105,7 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
               <p className="mb-6 max-w-md text-sm text-slate-500">
                 Secure preview is available for PDF and image files. This access has been recorded.
               </p>
-              <Button href={signed.signedUrl} variant="blue">
+              <Button href={`/download/${token}`} variant="blue">
                 Download file
               </Button>
             </div>
