@@ -1,14 +1,32 @@
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { ArrowRight, FileText, Search, Shield } from "lucide-react";
+import { redirect } from "next/navigation";
 import { requireCurrentUser } from "@/lib/auth/getCurrentUser";
 import { getUserDocuments } from "@/lib/data";
 import { Button } from "@/components/blinkseal/button";
 import { CopyLink } from "@/components/blinkseal/copy-link";
 import { StatusBadge } from "@/components/blinkseal/status-badge";
 import { formatDate, getAppUrl } from "@/lib/format";
+import { hasSupabaseAdminConfig } from "@/lib/supabase/admin";
 
 export default async function DashboardPage() {
-  const user = await requireCurrentUser();
-  const documents = await getUserDocuments(user.id);
+  const session = await auth();
+  if (!session.userId) {
+    redirect("/sign-in");
+  }
+
+  const clerkUser = await currentUser();
+  let documents: any[] = [];
+
+  if (hasSupabaseAdminConfig()) {
+    try {
+      const appUser = await requireCurrentUser();
+      documents = await getUserDocuments(appUser.id);
+    } catch (error) {
+      console.error("[dashboard] Failed to load Supabase data", error);
+      documents = [];
+    }
+  }
 
   if (documents.length === 0) {
     return (
@@ -20,7 +38,7 @@ export default async function DashboardPage() {
           Send sensitive documents with confidence
         </h1>
         <p className="mb-8 max-w-md text-center text-slate-500">
-          Create an expiring link and see exactly when it is opened.
+          {clerkUser?.firstName ? `${clerkUser.firstName}, create` : "Create"} an expiring link and see exactly when it is opened.
         </p>
         <Button href="/dashboard/upload" variant="blue" className="h-11 rounded-xl px-5">
           Create your first secure link
