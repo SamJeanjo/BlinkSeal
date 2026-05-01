@@ -5,8 +5,10 @@ import { Button } from "@/components/blinkseal/button";
 import { BrandMark, LogoIcon } from "@/components/blinkseal/logo";
 
 export default async function HomePage() {
-  const { userId } = await auth();
-  if (userId) redirect("/dashboard");
+  if (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY) {
+    const { userId } = await auth();
+    if (userId) redirect("/dashboard");
+  }
 
   return (
     <main className="min-h-screen bg-[#F9FAFB]">
