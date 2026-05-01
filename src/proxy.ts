@@ -15,7 +15,11 @@ function fallbackProxy(request: NextRequest) {
 
 const clerkProxy = clerkMiddleware(async (auth, request) => {
   if (isProtectedRoute(request)) {
-    await auth.protect();
+    const { userId } = await auth();
+
+    if (!userId) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
   }
 });
 
