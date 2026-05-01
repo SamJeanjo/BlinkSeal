@@ -1,10 +1,9 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse, type NextRequest } from "next/server";
+import { hasClerkServerConfig } from "@/lib/clerk-config";
 
 const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/settings(.*)"]);
-const hasClerkConfig = Boolean(
-  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY
-);
+const hasClerkConfig = hasClerkServerConfig();
 
 function fallbackProxy(request: NextRequest) {
   if (isProtectedRoute(request)) {

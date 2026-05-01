@@ -3,9 +3,10 @@ import { Plus, Shield } from "lucide-react";
 import Link from "next/link";
 import { BrandMark } from "@/components/blinkseal/logo";
 import { Button } from "@/components/blinkseal/button";
+import { getClerkPublishableKey } from "@/lib/clerk-config";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const hasClerk = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+  const hasClerk = Boolean(getClerkPublishableKey());
 
   return (
     <div className="min-h-screen bg-[#F9FAFB]">

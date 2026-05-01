@@ -1,8 +1,9 @@
 import { SignIn } from "@clerk/nextjs";
 import { BrandMark } from "@/components/blinkseal/logo";
+import { getClerkPublishableKey } from "@/lib/clerk-config";
 
 export default function SignInPage() {
-  const hasClerk = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+  const hasClerk = Boolean(getClerkPublishableKey());
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#F9FAFB] p-6">

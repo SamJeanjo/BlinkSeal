@@ -3,9 +3,10 @@ import { ArrowRight, Eye, Lock, Shield } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/blinkseal/button";
 import { BrandMark, LogoIcon } from "@/components/blinkseal/logo";
+import { hasClerkServerConfig } from "@/lib/clerk-config";
 
 export default async function HomePage() {
-  if (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY) {
+  if (hasClerkServerConfig()) {
     const { userId } = await auth();
     if (userId) redirect("/dashboard");
   }
