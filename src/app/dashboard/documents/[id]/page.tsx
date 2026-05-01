@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   ArrowLeft,
   BarChart3,
-  ChevronDown,
   ChevronUp,
   Eye,
   FileText,
@@ -78,13 +77,15 @@ function eventBrowser(userAgent: string | null) {
 
 function formatFullDate(value: string | null | undefined) {
   if (!value) return "None";
-  return `${new Intl.DateTimeFormat("en", {
+  return new Intl.DateTimeFormat("en", {
     month: "short",
     day: "numeric",
     year: "numeric",
     hour: "numeric",
-    minute: "2-digit"
-  }).format(new Date(value))} (GMT-04:00)`;
+    minute: "2-digit",
+    timeZone: "America/New_York",
+    timeZoneName: "shortOffset"
+  }).format(new Date(value));
 }
 
 function formatUtc(value: string) {

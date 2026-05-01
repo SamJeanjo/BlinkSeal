@@ -16,7 +16,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "BlinkSeal",
-  description: "Secure document links with proof of access."
+  description: "Confidential document links with auditable proof of access for legal teams.",
+  robots: {
+    index: true,
+    follow: true
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

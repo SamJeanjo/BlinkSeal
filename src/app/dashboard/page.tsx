@@ -82,8 +82,9 @@ export default async function DashboardPage() {
     <div className="space-y-6 pt-4">
       <div className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-slate-950">My Files</h1>
-          <p className="mt-1 text-sm text-slate-500">Secure links, proof timelines, and access status.</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-[#525F7F]">Matter documents</p>
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">Secure client links</h1>
+          <p className="mt-1 text-sm text-slate-500">Private documents, access status, and proof timelines.</p>
         </div>
         <div className="relative w-full sm:w-80">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -134,14 +135,14 @@ export default async function DashboardPage() {
                     <p className="mb-4 truncate font-mono text-base text-[#52627A]">
                       {latestLink ? shortShareUrl(latestLink.token) : "Create a secure link to start tracking access"}
                     </p>
-                    <p className="mb-4 text-base text-slate-400">Download allowed · No watermark</p>
+                    <p className="mb-4 text-base text-slate-400">Download allowed - No watermark</p>
                     <div className="flex flex-wrap items-center gap-7 text-sm text-slate-400">
                       <span className="inline-flex items-center gap-2">
                         <Eye className="h-4 w-4" />
                         Opened {openedCount} time{openedCount === 1 ? "" : "s"}
                       </span>
                       <span>
-                        Last: {lastOpened ? `Opened · ${formatDate(lastOpened)}` : `Uploaded · ${formatDate(document.created_at)}`}
+                        Last: {lastOpened ? `Opened - ${formatDate(lastOpened)}` : `Uploaded - ${formatDate(document.created_at)}`}
                       </span>
                     </div>
                   </div>

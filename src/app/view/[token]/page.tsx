@@ -58,7 +58,7 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
           </div>
           <div className="hidden items-center gap-2 text-xs text-slate-500 sm:flex">
             <Shield className="h-4 w-4" />
-            This session may be monitored. Activity is logged.
+            Secure viewing session. Access is recorded.
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
             <div className="min-w-0">
               <h1 className="truncate font-semibold text-slate-900">{document.file_name}</h1>
               <p className="mt-1 text-xs text-slate-500">
-                Secure access granted · Expires {formatDate(shareLink.expires_at)}
+                Secure access granted - Expires {formatDate(shareLink.expires_at)}
               </p>
             </div>
             <Button href={signed.signedUrl} variant="outline" className="h-9" >
@@ -104,7 +104,7 @@ export default async function PublicViewerPage({ params }: { params: Promise<{ t
         <div className="mt-6 flex items-center justify-between rounded-xl border border-slate-200 bg-white px-5 py-3 shadow-sm">
           <div className="flex items-center gap-2 text-sm font-medium text-slate-500">
             <div className="h-2 w-2 rounded-full bg-emerald-500" />
-            Viewing recorded
+            Viewing recorded for audit proof
           </div>
           <p className="text-xs text-slate-400">Powered by BlinkSeal</p>
         </div>

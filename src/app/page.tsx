@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { ArrowRight, Eye, Lock, Shield } from "lucide-react";
+import { ArrowRight, Eye, FileCheck2, Lock, Shield } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/blinkseal/button";
 import { BrandMark, LogoIcon } from "@/components/blinkseal/logo";
@@ -29,21 +29,26 @@ export default async function HomePage() {
         <div>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600">
             <Shield className="h-4 w-4 text-[#0066CC]" />
-            Secure document links with proof
+            Confidential document access with auditable proof
           </div>
           <h1 className="max-w-3xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
             BlinkSeal
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-            Upload a document, generate a private secure link, and see exactly when it is opened.
+            Share privileged documents through private links, record every valid open, and preserve a clean access history for client files, disputes, and evidentiary review.
           </p>
+          <div className="mt-6 grid max-w-xl gap-3 text-sm text-slate-600 sm:grid-cols-3">
+            <span className="rounded-lg border border-slate-200 bg-white px-3 py-2">Private storage</span>
+            <span className="rounded-lg border border-slate-200 bg-white px-3 py-2">Signed access</span>
+            <span className="rounded-lg border border-slate-200 bg-white px-3 py-2">Immutable audit trail</span>
+          </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button href="/sign-up" variant="blue" className="h-12 px-6 text-base">
               Create your first secure link
               <ArrowRight className="h-5 w-5" />
             </Button>
             <Button href="/security" variant="outline" className="h-12 px-6 text-base">
-              Security
+            Review security
             </Button>
           </div>
         </div>
@@ -57,8 +62,8 @@ export default async function HomePage() {
           </div>
           <div className="space-y-4">
             <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
-              <p className="text-sm font-medium text-slate-900">Q4 Investor Packet.pdf</p>
-              <p className="mt-1 font-mono text-xs text-slate-500">app.blinkseal.io/view/8fK2...pQ</p>
+              <p className="text-sm font-medium text-slate-900">Settlement Agreement.pdf</p>
+              <p className="mt-1 font-mono text-xs text-slate-500">blinkseal.vercel.app/view/8fK2...pQ</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-xl border border-slate-100 p-4">
@@ -71,6 +76,13 @@ export default async function HomePage() {
                 <p className="text-2xl font-semibold text-slate-900">Private</p>
                 <p className="text-xs text-slate-500">Signed access only</p>
               </div>
+            </div>
+            <div className="rounded-xl border border-slate-100 p-4">
+              <FileCheck2 className="mb-3 h-4 w-4 text-[#525F7F]" />
+              <p className="text-sm font-semibold text-slate-900">Access proof ready</p>
+              <p className="mt-1 text-xs leading-5 text-slate-500">
+                Timestamp, IP, device, and referrer are captured for every valid view.
+              </p>
             </div>
           </div>
         </div>

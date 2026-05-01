@@ -7,6 +7,15 @@ import { requireCurrentUser } from "@/lib/auth/getCurrentUser";
 import { DOCUMENT_BUCKET, getSupabaseAdmin } from "@/lib/supabase/admin";
 
 const safeName = (name: string) => name.replace(/[^a-zA-Z0-9._-]/g, "-");
+const maxUploadBytes = 25 * 1024 * 1024;
+const allowedTypes = new Set([
+  "application/pdf",
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+]);
 
 export async function uploadDocument(formData: FormData) {
   const appUser = await requireCurrentUser();
@@ -14,6 +23,14 @@ export async function uploadDocument(formData: FormData) {
 
   if (!(file instanceof File) || file.size === 0) {
     throw new Error("Choose a file to upload.");
+  }
+
+  if (file.size > maxUploadBytes) {
+    throw new Error("Files must be 25 MB or smaller.");
+  }
+
+  if (file.type && !allowedTypes.has(file.type)) {
+    throw new Error("Upload a PDF, Word document, PNG, JPG, or WebP file.");
   }
 
   const supabase = getSupabaseAdmin();
