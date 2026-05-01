@@ -1,0 +1,5 @@
+-- Supabase schema lives in:
+-- supabase/migrations/001_initial_schema.sql
+--
+-- Run that migration with the Supabase CLI, or paste its contents into the
+-- Supabase SQL editor.
