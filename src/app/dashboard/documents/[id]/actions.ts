@@ -62,3 +62,31 @@ export async function revokeShareLink(documentId: string, shareLinkId: string) {
   revalidatePath(`/dashboard/documents/${documentId}`);
   revalidatePath("/dashboard");
 }
+
+export async function recordTestView(documentId: string, shareLinkId: string) {
+  const appUser = await requireCurrentUser();
+  const supabase = getSupabaseAdmin();
+
+  const { data: ownedLink, error: linkError } = await supabase
+    .from("share_links")
+    .select("id, documents!inner(id, owner_id)")
+    .eq("id", shareLinkId)
+    .eq("document_id", documentId)
+    .eq("documents.owner_id", appUser.id)
+    .single();
+
+  if (linkError || !ownedLink) {
+    throw new Error("Secure link not found.");
+  }
+
+  const { error } = await supabase.from("view_events").insert({
+    share_link_id: shareLinkId,
+    ip_address: "Owner test",
+    user_agent: "BlinkSeal test event",
+    referrer: "dashboard"
+  });
+
+  if (error) throw error;
+  revalidatePath(`/dashboard/documents/${documentId}`);
+  revalidatePath("/dashboard");
+}
