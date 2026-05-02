@@ -22,12 +22,12 @@ export function LegalPage({
     <main className="min-h-screen bg-[#020617] text-slate-200">
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.10),transparent_42%),linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:auto,72px_72px,72px_72px]" />
       <header className="relative z-10 border-b border-white/10 bg-black/30 backdrop-blur-xl">
-        <div className="mx-auto flex h-18 max-w-5xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-2xl border border-sky-300/20 bg-black shadow-[0_0_34px_rgba(56,189,248,0.18)]">
-              <LogoIcon size={76} variant="dark" className="max-w-none rounded-2xl" />
+        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-2.5">
+            <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-xl bg-transparent">
+              <LogoIcon size={38} variant="dark" className="rounded-xl opacity-90 mix-blend-screen" />
             </span>
-            <span className="text-xl tracking-wide text-white"><span>Blink</span><span className="font-semibold">Seal</span></span>
+            <span className="text-xl leading-none tracking-wide text-white"><span>Blink</span><span className="font-semibold">Seal</span></span>
           </Link>
           <Link href="/sign-up" className="rounded-lg bg-sky-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.20)] transition hover:bg-sky-300">
             Get Started Free

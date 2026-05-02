@@ -33,8 +33,12 @@ export function LogoIcon({
 export function BrandMark({ variant = "light" }: { variant?: LogoVariant }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className={`grid h-9 w-9 place-items-center overflow-hidden rounded-xl ${variant === "light" ? "bg-white" : "bg-black"}`}>
-        <LogoIcon size={58} variant={variant} className="max-w-none rounded-xl" />
+      <span className="grid h-9 w-9 place-items-center overflow-hidden rounded-xl bg-transparent">
+        <LogoIcon
+          size={34}
+          variant={variant}
+          className={`rounded-xl ${variant === "dark" ? "mix-blend-screen opacity-90" : ""}`}
+        />
       </span>
       <span className="text-xl tracking-wide text-slate-900">
         <span className="font-normal">Blink</span>

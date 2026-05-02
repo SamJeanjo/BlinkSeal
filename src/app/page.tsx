@@ -34,12 +34,12 @@ export default function HomePage() {
       </div>
 
       <header className="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-xl">
-        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-2xl border border-sky-300/20 bg-black shadow-[0_0_34px_rgba(56,189,248,0.18)]">
-              <LogoIcon size={76} variant="dark" className="max-w-none rounded-2xl" />
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
+          <Link href="/" className="flex items-center gap-2.5">
+            <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-xl bg-transparent">
+              <LogoIcon size={38} variant="dark" className="rounded-xl opacity-90 mix-blend-screen" />
             </span>
-            <span className="text-xl tracking-wide text-white">
+            <span className="text-xl leading-none tracking-wide text-white">
               <span className="font-normal">Blink</span>
               <span className="font-semibold">Seal</span>
             </span>
@@ -54,8 +54,8 @@ export default function HomePage() {
             <Link href="/sign-in" className="hidden rounded-lg border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/5 sm:inline-flex">
               Login
             </Link>
-            <Link href="/sign-up" className="inline-flex items-center gap-2 rounded-lg bg-sky-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.25)] transition hover:bg-sky-300">
-              Get Started Free
+            <Link href="/sign-up" aria-label="Get Started Free" className="inline-flex h-10 w-10 items-center justify-center whitespace-nowrap rounded-lg bg-sky-400 text-sm font-semibold text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.25)] transition hover:bg-sky-300 sm:w-auto sm:gap-2 sm:px-4">
+              <span className="hidden sm:inline">Get Started Free</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -286,11 +286,11 @@ export default function HomePage() {
       <footer className="relative z-10 border-t border-white/10 bg-black/20">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
-            <Link href="/" className="flex items-center gap-3">
-              <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-2xl border border-sky-300/20 bg-black shadow-[0_0_34px_rgba(56,189,248,0.18)]">
-                <LogoIcon size={76} variant="dark" className="max-w-none rounded-2xl" />
+            <Link href="/" className="flex items-center gap-2.5">
+              <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-xl bg-transparent">
+                <LogoIcon size={38} variant="dark" className="rounded-xl opacity-90 mix-blend-screen" />
               </span>
-              <span className="text-xl tracking-wide text-white"><span>Blink</span><span className="font-semibold">Seal</span></span>
+              <span className="text-xl leading-none tracking-wide text-white"><span>Blink</span><span className="font-semibold">Seal</span></span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">
               Secure document sharing with built-in proof. A product of Code10Rx LLC.
