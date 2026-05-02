@@ -20,8 +20,6 @@ import {
 } from "lucide-react";
 import { LogoIcon } from "@/components/blinkseal/logo";
 
-const appUrl = "https://app.blinkseal.io";
-
 const card =
   "rounded-2xl border border-white/10 bg-white/[0.05] shadow-[0_0_40px_rgba(56,189,248,0.08)] backdrop-blur-xl";
 
@@ -38,8 +36,11 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-xl">
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white shadow-[0_0_24px_rgba(255,255,255,0.08)]">
-              <LogoIcon size={31} />
+            <span className="relative grid h-11 w-11 place-items-center rounded-2xl border border-sky-300/20 bg-white shadow-[0_0_34px_rgba(56,189,248,0.18)]">
+              <span className="absolute inset-0 rounded-2xl bg-sky-300/10 blur-md" />
+              <span className="relative grid h-9 w-9 place-items-center rounded-xl bg-white">
+                <LogoIcon size={29} />
+              </span>
             </span>
             <span className="text-xl tracking-wide text-white">
               <span className="font-normal">Blink</span>
@@ -47,8 +48,8 @@ export default function HomePage() {
             </span>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
-            <a href="#product" className="transition hover:text-white">Product</a>
-            <a href="#proof" className="transition hover:text-white">Proof</a>
+            <a href="#features" className="transition hover:text-white">Product</a>
+            <a href="#access-proof" className="transition hover:text-white">Proof</a>
             <a href="#security" className="transition hover:text-white">Security</a>
             <a href="#pricing" className="transition hover:text-white">Pricing</a>
           </nav>
@@ -136,7 +137,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="product" className="relative z-10 mx-auto max-w-7xl px-6 py-20">
+      <section id="features" className="relative z-10 mx-auto max-w-7xl scroll-mt-24 px-6 py-20">
+        <div id="audit-exports" className="scroll-mt-28" />
         <div className="grid gap-4 md:grid-cols-3">
           <TrustCard icon={<FileCheck2 />} title="Audit-ready exports" body="Generate signed certificate records with hashes, timestamps, UTC event history, and canonical evidence bundles." />
           <TrustCard icon={<ShieldCheck />} title="Security-first access" body="Private storage, server-side validation, scoped access, no public files, and production security headers." />
@@ -153,7 +155,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative z-10 border-y border-white/10 bg-white/[0.03]">
+      <section id="how-it-works" className="relative z-10 scroll-mt-24 border-y border-white/10 bg-white/[0.03]">
         <div className="mx-auto max-w-7xl px-6 py-20">
           <SectionIntro eyebrow="How it works" title="Three steps from upload to court-ready proof." />
           <div className="mt-10 grid gap-4 md:grid-cols-3">
@@ -164,7 +166,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="proof" className="relative z-10 mx-auto grid max-w-7xl gap-10 px-6 py-24 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+      <section id="access-proof" className="relative z-10 mx-auto grid max-w-7xl scroll-mt-24 gap-10 px-6 py-24 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
         <div>
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-300">
             <ShieldCheck className="h-4 w-4" />
@@ -203,7 +205,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="security" className="relative z-10 border-y border-white/10 bg-white/[0.03]">
+      <section id="security" className="relative z-10 scroll-mt-24 border-y border-white/10 bg-white/[0.03]">
         <div className="mx-auto max-w-7xl px-6 py-20">
           <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
             <SectionIntro eyebrow="Security lawyers can trust" title="Built to withstand careful questions." body="BlinkSeal uses private buckets, signed URLs, server-side access checks, revocation, expiration, and certificate signing keys that never enter the browser." />
@@ -288,8 +290,11 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white">
-                <LogoIcon size={31} />
+              <span className="relative grid h-11 w-11 place-items-center rounded-2xl border border-sky-300/20 bg-white shadow-[0_0_34px_rgba(56,189,248,0.18)]">
+                <span className="absolute inset-0 rounded-2xl bg-sky-300/10 blur-md" />
+                <span className="relative grid h-9 w-9 place-items-center rounded-xl bg-white">
+                  <LogoIcon size={29} />
+                </span>
               </span>
               <span className="text-xl tracking-wide text-white"><span>Blink</span><span className="font-semibold">Seal</span></span>
             </Link>
@@ -297,9 +302,30 @@ export default function HomePage() {
               Secure document sharing with built-in proof. A product of Code10Rx LLC.
             </p>
           </div>
-          <FooterGroup title="Product" links={["Features", "Pricing", "How It Works"]} />
-          <FooterGroup title="Security" links={["Security Overview", "Access Proof", "Audit Exports"]} />
-          <FooterGroup title="Company" links={["Terms & Conditions", "Privacy policy", "Security & Compliance"]} />
+          <FooterGroup
+            title="Product"
+            links={[
+              { label: "Features", href: "/#features" },
+              { label: "Pricing", href: "/#pricing" },
+              { label: "How It Works", href: "/#how-it-works" }
+            ]}
+          />
+          <FooterGroup
+            title="Security"
+            links={[
+              { label: "Security Overview", href: "/security" },
+              { label: "Access Proof", href: "/#access-proof" },
+              { label: "Audit Exports", href: "/#audit-exports" }
+            ]}
+          />
+          <FooterGroup
+            title="Company"
+            links={[
+              { label: "Terms & Conditions", href: "/terms" },
+              { label: "Privacy policy", href: "/privacy-policy" },
+              { label: "Security & Compliance", href: "/security-compliance" }
+            ]}
+          />
         </div>
         <div className="border-t border-white/10 px-6 py-5 text-center text-xs text-slate-500">
           (c) 2026 BlinkSeal / Code10Rx LLC. All rights reserved.
@@ -542,15 +568,15 @@ function Plan({ name, price, items, featured = false }: { name: string; price: s
   );
 }
 
-function FooterGroup({ title, links }: { title: string; links: string[] }) {
+function FooterGroup({ title, links }: { title: string; links: Array<{ label: string; href: string }> }) {
   return (
     <div>
       <h3 className="text-sm font-semibold text-white">{title}</h3>
       <div className="mt-3 space-y-2">
         {links.map((link) => (
-          <a key={link} href={appUrl} className="block text-sm text-slate-400 transition hover:text-white">
-            {link}
-          </a>
+          <Link key={link.label} href={link.href} className="block text-sm text-slate-400 transition hover:text-white">
+            {link.label}
+          </Link>
         ))}
       </div>
     </div>
