@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
-  Award,
+  BadgeCheck,
   Check,
   Clock3,
   Download,
@@ -12,80 +13,102 @@ import {
   KeyRound,
   Lock,
   Scale,
-  Shield,
   ShieldCheck,
   Signature,
   Timer,
   Users
 } from "lucide-react";
-import { Button } from "@/components/blinkseal/button";
-import { BrandMark } from "@/components/blinkseal/logo";
+import { LogoIcon } from "@/components/blinkseal/logo";
 
 const appUrl = "https://app.blinkseal.io";
 
+const card =
+  "rounded-2xl border border-white/10 bg-white/[0.05] shadow-[0_0_40px_rgba(56,189,248,0.08)] backdrop-blur-xl";
+
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#F7F8FA] text-slate-950">
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex h-18 max-w-[1180px] items-center justify-between px-6">
-          <BrandMark />
-          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
-            <a href="#product" className="hover:text-slate-950">Product</a>
-            <a href="#proof" className="hover:text-slate-950">Proof</a>
-            <a href="#security" className="hover:text-slate-950">Security</a>
-            <a href="#pricing" className="hover:text-slate-950">Pricing</a>
+    <main className="min-h-screen bg-[#020617] text-[#E5E7EB] selection:bg-sky-400/30">
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-[-18rem] h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-sky-400/10 blur-3xl" />
+        <div className="absolute right-[-16rem] top-40 h-[34rem] w-[34rem] rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="absolute bottom-[-18rem] left-[-10rem] h-[34rem] w-[34rem] rounded-full bg-emerald-500/8 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:linear-gradient(to_bottom,black,transparent_82%)]" />
+      </div>
+
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-xl">
+        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-3">
+            <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white shadow-[0_0_24px_rgba(255,255,255,0.08)]">
+              <LogoIcon size={31} />
+            </span>
+            <span className="text-xl tracking-wide text-white">
+              <span className="font-normal">Blink</span>
+              <span className="font-semibold">Seal</span>
+            </span>
+          </Link>
+          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
+            <a href="#product" className="transition hover:text-white">Product</a>
+            <a href="#proof" className="transition hover:text-white">Proof</a>
+            <a href="#security" className="transition hover:text-white">Security</a>
+            <a href="#pricing" className="transition hover:text-white">Pricing</a>
           </nav>
           <div className="flex items-center gap-3">
-            <Button href="/sign-in" variant="outline" className="h-10">Login</Button>
-            <Button href="/sign-up" className="hidden h-10 sm:inline-flex">Get Started Free</Button>
+            <Link href="/sign-in" className="hidden rounded-lg border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/5 sm:inline-flex">
+              Login
+            </Link>
+            <Link href="/sign-up" className="inline-flex items-center gap-2 rounded-lg bg-sky-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.25)] transition hover:bg-sky-300">
+              Get Started Free
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </header>
 
-      <section className="relative overflow-hidden border-b border-slate-200 bg-[radial-gradient(circle_at_82%_18%,rgba(0,102,204,0.10),transparent_30%),linear-gradient(180deg,#ffffff_0%,#f7f9fc_100%)]">
-        <div className="mx-auto max-w-[1180px] px-6 pb-12 pt-14 lg:pb-18 lg:pt-20">
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[0.9fr_0.72fr] lg:items-start">
-            <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-[#525F7F] shadow-sm">
-              <Scale className="h-4 w-4" />
+      <section className="relative z-10">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.02fr_0.98fr] lg:py-24">
+          <div>
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-semibold text-slate-300 shadow-[0_0_30px_rgba(56,189,248,0.08)] backdrop-blur-xl">
+              <Scale className="h-4 w-4 text-sky-300" />
               Built for law firms, legal operations, and compliance teams
             </div>
-            <h1 className="max-w-3xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl lg:text-[76px] lg:leading-[0.95]">
+            <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-[78px] lg:leading-[0.94]">
               Court-ready proof that your document was accessed.
             </h1>
-            <p className="mt-6 max-w-2xl text-xl leading-9 text-slate-600">
-              Share confidential legal documents, track every valid open, and issue independently verifiable access certificates with file hashes, event logs, and cryptographic signatures.
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
+              Share confidential legal documents, track every open, and generate verifiable access certificates with timestamps, hashes, and cryptographic signatures.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Button href="/sign-up" variant="blue" className="h-12 px-6 text-base">
-                Start Sharing Free
+              <Link href="/sign-up" className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-sky-400 px-6 text-base font-semibold text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.25)] transition hover:-translate-y-0.5 hover:bg-sky-300">
+                Get Started Free
                 <ArrowRight className="h-5 w-5" />
-              </Button>
-              <Button href="#proof" variant="outline" className="h-12 px-6 text-base">
+              </Link>
+              <a href="#proof" className="inline-flex h-12 items-center justify-center rounded-lg border border-white/10 bg-white/5 px-6 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/10">
                 See verified proof
-              </Button>
+              </a>
             </div>
-            <p className="mt-4 text-sm font-medium text-slate-500">No credit card required. Private storage by default.</p>
-            <div className="mt-7 grid max-w-2xl gap-3 sm:grid-cols-4">
+            <p className="mt-4 text-sm font-medium text-slate-400">No credit card required. Built for confidential client work.</p>
+            <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-4">
               <HeroTrust icon={<Lock />} label="Private storage" />
               <HeroTrust icon={<Fingerprint />} label="SHA-256 hash" />
               <HeroTrust icon={<Signature />} label="Signed certificate" />
               <HeroTrust icon={<ShieldCheck />} label="Verify page" />
             </div>
-            </div>
+          </div>
 
-            <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-300/60">
-              <div className="rounded-2xl bg-slate-950 p-5 text-white">
-                <div className="flex items-start justify-between gap-5">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">Verified Access Certificate</p>
-                    <h2 className="mt-2 text-2xl font-semibold">BSC-2026-A19F42E3C0</h2>
-                  </div>
-                  <span className="rounded-full bg-emerald-400 px-3 py-1 text-xs font-semibold text-slate-950">Valid</span>
+          <div className="relative">
+            <div className="absolute -inset-5 rounded-[2rem] bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.22),transparent_58%)] blur-2xl" />
+            <div className={`${card} relative p-4 transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_70px_rgba(56,189,248,0.20)] sm:p-6`}>
+              <div className="rounded-2xl border border-white/10 bg-[#030712]/95 p-5 shadow-2xl shadow-black/40">
+                <div className="flex items-center justify-between gap-5">
+                  <span className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-300">Verified Access Certificate</span>
+                  <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-300 ring-1 ring-emerald-400/30 [animation:shieldPulse_1.9s_ease-in-out_infinite]">
+                    Valid
+                  </span>
                 </div>
-                <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-sm font-semibold">Settlement_Agreement.pdf</p>
-                  <p className="mt-1 text-xs text-slate-300">Issued May 1, 2026 - 4 access events</p>
+                <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">BSC-2026-A19F42E3C0</h2>
+                <div className="mt-7 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                  <p className="text-base font-semibold text-white">Settlement_Agreement.pdf</p>
+                  <p className="mt-2 text-sm text-slate-400">Issued May 1, 2026 - 4 access events</p>
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   <MiniProof label="Document hash" value="d81f...19c4" />
@@ -93,54 +116,46 @@ export default function HomePage() {
                   <MiniProof label="Signature" value="Ed25519 valid" />
                   <MiniProof label="Verification" value="/verify/BSC..." />
                 </div>
+                <div className="mt-5 grid grid-cols-3 gap-3">
+                  <CertStat value="4" label="Opens" />
+                  <CertStat value="1" label="Download" />
+                  <CertStat value="UTC" label="Timeline" />
+                </div>
               </div>
-              <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-                <div className="rounded-xl bg-slate-50 p-3">
-                  <p className="text-xl font-semibold text-slate-950">4</p>
-                  <p className="text-xs text-slate-500">Opens</p>
-                </div>
-                <div className="rounded-xl bg-slate-50 p-3">
-                  <p className="text-xl font-semibold text-slate-950">1</p>
-                  <p className="text-xs text-slate-500">Download</p>
-                </div>
-                <div className="rounded-xl bg-slate-50 p-3">
-                  <p className="text-xl font-semibold text-slate-950">UTC</p>
-                  <p className="text-xs text-slate-500">Timeline</p>
-                </div>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <ProofPill icon={<FileLock2 />} text="Private bucket" />
+                <ProofPill icon={<KeyRound />} text="Signed URLs" />
+                <ProofPill icon={<BadgeCheck />} text="Public verify" />
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="mt-10 rounded-[28px] border border-slate-200 bg-white p-3 shadow-2xl shadow-slate-300/70">
-            <Image
-              src="/marketing/myfiles-hero.png"
-              alt="BlinkSeal My Files dashboard"
-              width={1400}
-              height={820}
-              priority
-              className="rounded-[20px] border border-slate-200 bg-white contrast-110 saturate-110"
-            />
+        <div className="mx-auto max-w-7xl px-6 pb-20">
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-3 shadow-[0_0_60px_rgba(56,189,248,0.10)] backdrop-blur-xl">
+            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-950">
+              <Image
+                src="/marketing/myfiles-hero.png"
+                alt="BlinkSeal My Files dashboard"
+                width={1400}
+                height={820}
+                priority
+                className="w-full opacity-90 contrast-110 saturate-75"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="product" className="mx-auto max-w-[1180px] px-6 py-18">
+      <section id="product" className="relative z-10 mx-auto max-w-7xl px-6 py-20">
         <div className="grid gap-4 md:grid-cols-3">
-          <TrustCard icon={<Award />} title="Audit-ready exports" body="Generate signed certificate records with hashes, timestamps, and canonical evidence bundles." />
-          <TrustCard icon={<ShieldCheck />} title="SOC-ready architecture" body="Private storage, server-side validation, scoped access, and production security headers." />
+          <TrustCard icon={<FileCheck2 />} title="Audit-ready exports" body="Generate signed certificate records with hashes, timestamps, and canonical evidence bundles." />
+          <TrustCard icon={<ShieldCheck />} title="Security-first access" body="Private storage, server-side validation, scoped access, and production security headers." />
           <TrustCard icon={<Signature />} title="Cryptographic signatures" body="Ed25519-signed certificate payloads give IT teams a verification path beyond screenshots." />
         </div>
 
-        <div className="mt-20 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-[#525F7F]">Secure document sharing</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
-              Verifiable proof of access, not a hopeful email attachment.
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
-              BlinkSeal gives legal teams a controlled link, a live proof timeline, and a signed certificate that captures what happened.
-            </p>
-          </div>
+        <div className="mt-24 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <SectionIntro eyebrow="Secure document sharing" title="Verifiable proof of access, not a hopeful email attachment." body="BlinkSeal gives legal teams a controlled link, a live proof timeline, and a signed certificate that captures what happened." />
           <div className="grid gap-4 sm:grid-cols-3">
             <FeatureCard icon={<FileLock2 />} title="Secure Links" body="Revocable links with expiration, view limits, one-time access, and private signed URLs." />
             <FeatureCard icon={<Eye />} title="Real-Time Tracking" body="Record opens, downloads, IP, device, browser, referrer, and UTC timestamps." />
@@ -149,72 +164,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-slate-200 bg-white">
-        <div className="mx-auto max-w-[1180px] px-6 py-18">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-wide text-[#525F7F]">How it works</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Three steps from upload to court-ready proof.</h2>
-          </div>
+      <section className="relative z-10 border-y border-white/10 bg-white/[0.03]">
+        <div className="mx-auto max-w-7xl px-6 py-20">
+          <SectionIntro eyebrow="How it works" title="Three steps from upload to court-ready proof." />
           <div className="mt-10 grid gap-4 md:grid-cols-3">
-            <Step number="1" icon={<FileLock2 />} title="Upload document" body="Files are stored in a private Supabase bucket. The SHA-256 file hash is recorded on upload." />
+            <Step number="1" icon={<FileLock2 />} title="Upload document" body="Files are stored in a private bucket. The SHA-256 file hash is recorded on upload." />
             <Step number="2" icon={<KeyRound />} title="Share secure link" body="Set access rules, then send a private link that validates server-side before any document access." />
-            <Step number="3" icon={<Award />} title="Issue certificate" body="Export a signed access certificate with a public verification page and JSON evidence bundle." />
+            <Step number="3" icon={<BadgeCheck />} title="Issue certificate" body="Export a signed access certificate with a public verification page and JSON evidence bundle." />
           </div>
         </div>
       </section>
 
-      <section id="proof" className="mx-auto grid max-w-[1180px] gap-10 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+      <section id="proof" className="relative z-10 mx-auto grid max-w-7xl gap-10 px-6 py-24 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
         <div>
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-300">
             <ShieldCheck className="h-4 w-4" />
             Verified Access Certificate
           </div>
-          <h2 className="text-4xl font-semibold tracking-tight text-slate-950">Access proof a lawyer can explain and IT can verify.</h2>
-          <p className="mt-4 text-lg leading-8 text-slate-600">
-            Every certificate includes a document hash, event-log hash, Ed25519 signature, public key, canonical JSON payload, and public verification URL.
-          </p>
-          <ul className="mt-7 space-y-3 text-sm font-medium text-slate-700">
+          <SectionIntro title="Access proof a lawyer can explain and IT can verify." body="Every certificate includes a document hash, event-log hash, Ed25519 signature, public key, canonical JSON payload, and public verification URL." />
+          <ul className="mt-7 space-y-3 text-sm font-medium text-slate-300">
             {["File status and SHA-256 fingerprint", "Opens, downloads, IP, browser, and device", "Local and UTC timestamps", "Tamper-evident certificate hash", "JSON evidence bundle for IT review"].map((item) => (
               <li key={item} className="flex items-center gap-3">
-                <Check className="h-4 w-4 text-emerald-600" />
+                <Check className="h-4 w-4 text-emerald-400" />
                 {item}
               </li>
             ))}
           </ul>
         </div>
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60">
-          <div className="flex items-start justify-between border-b border-slate-200 pb-5">
+        <div className={`${card} p-6`}>
+          <div className="flex items-start justify-between gap-6 border-b border-white/10 pb-5">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-[#525F7F]">Certificate BSC-2026-A19F42E3C0</p>
-              <h3 className="mt-2 text-2xl font-semibold text-slate-950">Settlement Agreement.pdf</h3>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-300">Certificate BSC-2026-A19F42E3C0</p>
+              <h3 className="mt-2 text-2xl font-semibold text-white">Settlement Agreement.pdf</h3>
             </div>
-            <span className="rounded-full bg-emerald-600 px-3 py-1 text-sm font-semibold text-white">Valid</span>
+            <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-sm font-semibold text-emerald-300 ring-1 ring-emerald-400/30">Valid</span>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <HashCard icon={<Fingerprint />} label="Document SHA-256" value="d81f...19c4" />
-            <HashCard icon={<Shield />} label="Payload SHA-256" value="7c2a...92ee" />
+            <HashCard icon={<ShieldCheck />} label="Payload SHA-256" value="7c2a...92ee" />
             <HashCard icon={<Clock3 />} label="Issued UTC" value="2026-05-01 19:42" />
             <HashCard icon={<Download />} label="Events included" value="4 opens / 1 download" />
           </div>
-          <div className="mt-6 rounded-2xl bg-slate-50 p-5">
-            <p className="text-sm font-semibold text-slate-950">What this certificate proves</p>
-            <p className="mt-2 text-sm leading-6 text-slate-600">
+          <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <p className="text-sm font-semibold text-white">What this certificate proves</p>
+            <p className="mt-2 text-sm leading-6 text-slate-400">
               The stored document hash and the event log were signed by BlinkSeal at issuance. Any later change produces a different hash and fails verification.
             </p>
           </div>
         </div>
       </section>
 
-      <section id="security" className="border-y border-slate-200 bg-white">
-        <div className="mx-auto max-w-[1180px] px-6 py-18">
+      <section id="security" className="relative z-10 border-y border-white/10 bg-white/[0.03]">
+        <div className="mx-auto max-w-7xl px-6 py-20">
           <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-[#525F7F]">Security lawyers can trust</p>
-              <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Built to withstand careful questions.</h2>
-              <p className="mt-4 text-lg leading-8 text-slate-600">
-                BlinkSeal uses private buckets, signed URLs, server-side access checks, revocation, expiration, and certificate signing keys that never enter the browser.
-              </p>
-            </div>
+            <SectionIntro eyebrow="Security lawyers can trust" title="Built to withstand careful questions." body="BlinkSeal uses private buckets, signed URLs, server-side access checks, revocation, expiration, and certificate signing keys that never enter the browser." />
             <div className="grid gap-4 md:grid-cols-2">
               <SecurityItem icon={<Lock />} title="Private file storage" body="Documents are never served from public object URLs." />
               <SecurityItem icon={<Timer />} title="Short-lived access" body="Viewer sessions receive temporary signed URLs only after token validation." />
@@ -225,11 +228,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1180px] px-6 py-20">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-wide text-[#525F7F]">Built for teams that need proof</p>
-          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">From settlement drafts to compliance notices.</h2>
-        </div>
+      <section className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <SectionIntro eyebrow="Built for teams that need proof" title="From settlement drafts to compliance notices." />
         <div className="mt-10 grid gap-4 md:grid-cols-4">
           <Audience title="Lawyers" body="Share settlement drafts, demand letters, NDAs, and exhibits. See when opposing counsel opens." />
           <Audience title="HR Teams" body="Send offer letters and policy documents with access logs instead of follow-up guesswork." />
@@ -238,11 +238,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="pricing" className="border-y border-slate-200 bg-white">
-        <div className="mx-auto max-w-[1180px] px-6 py-20">
+      <section id="pricing" className="relative z-10 border-y border-white/10 bg-white/[0.03]">
+        <div className="mx-auto max-w-7xl px-6 py-24">
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-[#525F7F]">Simple, transparent pricing</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Start free. Upgrade when proof becomes workflow.</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-300">Simple, transparent pricing</p>
+            <h2 className="mx-auto mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">Start free. Upgrade when proof becomes workflow.</h2>
           </div>
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
             <Plan name="Free" price="$0/mo" items={["3 secure links/mo", "Basic access tracking", "7-day history"]} />
@@ -252,28 +252,33 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1180px] px-6 py-20">
-        <div className="rounded-[28px] border border-slate-200 bg-slate-950 p-8 text-white shadow-2xl shadow-slate-300/60 lg:p-12">
+      <section className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <div className="rounded-[2rem] border border-sky-300/20 bg-[radial-gradient(circle_at_12%_0%,rgba(56,189,248,0.20),transparent_35%),rgba(255,255,255,0.06)] p-8 shadow-[0_0_70px_rgba(56,189,248,0.14)] backdrop-blur-xl lg:p-12">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
-              <h2 className="text-4xl font-semibold tracking-tight">Start sharing with proof.</h2>
+              <h2 className="text-4xl font-semibold tracking-tight text-white">Start sharing with proof.</h2>
               <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
                 Join legal, HR, and compliance teams who need private delivery, verified access, and certificate-grade records.
               </p>
             </div>
-            <Button href="/sign-up" variant="blue" className="h-12 bg-white px-6 text-base text-slate-950 hover:bg-slate-100">
+            <Link href="/sign-up" className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-6 text-base font-semibold text-slate-950 transition hover:bg-slate-100">
               Get Started Free
               <ArrowRight className="h-5 w-5" />
-            </Button>
+            </Link>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-[1180px] gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
+      <footer className="relative z-10 border-t border-white/10 bg-black/20">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
-            <BrandMark />
-            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-500">
+            <Link href="/" className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white">
+                <LogoIcon size={31} />
+              </span>
+              <span className="text-xl tracking-wide text-white"><span>Blink</span><span className="font-semibold">Seal</span></span>
+            </Link>
+            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">
               Secure document sharing with built-in proof. A product of Code10Rx LLC.
             </p>
           </div>
@@ -281,7 +286,7 @@ export default function HomePage() {
           <FooterGroup title="Security" links={["Security Overview", "Access Proof", "Audit Exports"]} />
           <FooterGroup title="Company" links={["Terms & Conditions", "Privacy policy", "Security & Compliance"]} />
         </div>
-        <div className="border-t border-slate-200 px-6 py-5 text-center text-xs text-slate-400">
+        <div className="border-t border-white/10 px-6 py-5 text-center text-xs text-slate-500">
           (c) 2026 BlinkSeal / Code10Rx LLC. All rights reserved.
         </div>
       </footer>
@@ -289,103 +294,131 @@ export default function HomePage() {
   );
 }
 
-function TrustCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
+function SectionIntro({ eyebrow, title, body }: { eyebrow?: string; title: string; body?: string }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-4 text-[#525F7F] [&_svg]:h-6 [&_svg]:w-6">{icon}</div>
-      <h3 className="font-semibold text-slate-950">{title}</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-500">{body}</p>
+    <div className="max-w-3xl">
+      {eyebrow && <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-300">{eyebrow}</p>}
+      <h2 className="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl">{title}</h2>
+      {body && <p className="mt-4 text-lg leading-8 text-slate-400">{body}</p>}
     </div>
   );
 }
 
 function HeroTrust({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white/85 p-3 shadow-sm">
-      <div className="mb-2 text-[#0066CC] [&_svg]:h-4 [&_svg]:w-4">{icon}</div>
-      <p className="text-xs font-semibold text-slate-700">{label}</p>
+    <div className="rounded-xl border border-white/10 bg-white/[0.05] p-3 backdrop-blur-xl">
+      <div className="mb-2 text-sky-300 [&_svg]:h-4 [&_svg]:w-4">{icon}</div>
+      <p className="text-xs font-semibold text-slate-300">{label}</p>
     </div>
   );
 }
 
 function MiniProof({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-      <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">{label}</p>
+    <div className="rounded-xl border border-white/10 bg-white/[0.05] p-3">
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">{label}</p>
       <p className="mt-1 font-mono text-xs text-white">{value}</p>
+    </div>
+  );
+}
+
+function CertStat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3 text-center">
+      <p className="text-xl font-semibold text-white">{value}</p>
+      <p className="text-xs text-slate-500">{label}</p>
+    </div>
+  );
+}
+
+function ProofPill({ icon, text }: { icon: React.ReactNode; text: string }) {
+  return (
+    <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-semibold text-slate-300">
+      <span className="text-sky-300 [&_svg]:h-4 [&_svg]:w-4">{icon}</span>
+      {text}
+    </div>
+  );
+}
+
+function TrustCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
+  return (
+    <div className={`${card} p-6`}>
+      <div className="mb-4 text-sky-300 [&_svg]:h-6 [&_svg]:w-6">{icon}</div>
+      <h3 className="font-semibold text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-400">{body}</p>
     </div>
   );
 }
 
 function FeatureCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-slate-100 text-[#525F7F]">{icon}</div>
-      <h3 className="font-semibold text-slate-950">{title}</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-500">{body}</p>
+    <div className={`${card} p-5`}>
+      <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl border border-sky-300/20 bg-sky-400/10 text-sky-300">{icon}</div>
+      <h3 className="font-semibold text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-400">{body}</p>
     </div>
   );
 }
 
 function Step({ number, icon, title, body }: { number: string; icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className={`${card} p-6`}>
       <div className="mb-5 flex items-center justify-between">
-        <span className="grid h-10 w-10 place-items-center rounded-full bg-[#0066CC] text-sm font-semibold text-white">{number}</span>
-        <div className="text-[#525F7F] [&_svg]:h-6 [&_svg]:w-6">{icon}</div>
+        <span className="grid h-10 w-10 place-items-center rounded-full bg-sky-400 text-sm font-semibold text-slate-950 shadow-[0_0_30px_rgba(56,189,248,0.24)]">{number}</span>
+        <div className="text-violet-300 [&_svg]:h-6 [&_svg]:w-6">{icon}</div>
       </div>
-      <h3 className="font-semibold text-slate-950">{title}</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-500">{body}</p>
+      <h3 className="font-semibold text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-400">{body}</p>
     </div>
   );
 }
 
 function HashCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-      <div className="mb-3 text-[#525F7F] [&_svg]:h-5 [&_svg]:w-5">{icon}</div>
+    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+      <div className="mb-3 text-sky-300 [&_svg]:h-5 [&_svg]:w-5">{icon}</div>
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
-      <p className="mt-2 font-mono text-sm text-slate-950">{value}</p>
+      <p className="mt-2 font-mono text-sm text-white">{value}</p>
     </div>
   );
 }
 
 function SecurityItem({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-      <div className="mb-4 text-[#525F7F] [&_svg]:h-5 [&_svg]:w-5">{icon}</div>
-      <h3 className="font-semibold text-slate-950">{title}</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-500">{body}</p>
+    <div className={`${card} p-5`}>
+      <div className="mb-4 text-emerald-300 [&_svg]:h-5 [&_svg]:w-5">{icon}</div>
+      <h3 className="font-semibold text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-400">{body}</p>
     </div>
   );
 }
 
 function Audience({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h3 className="font-semibold text-slate-950">{title}</h3>
-      <p className="mt-3 text-sm leading-6 text-slate-500">{body}</p>
+    <div className={`${card} p-6`}>
+      <h3 className="font-semibold text-white">{title}</h3>
+      <p className="mt-3 text-sm leading-6 text-slate-400">{body}</p>
     </div>
   );
 }
 
 function Plan({ name, price, items, featured = false }: { name: string; price: string; items: string[]; featured?: boolean }) {
   return (
-    <div className={`rounded-3xl border p-7 shadow-sm ${featured ? "border-[#525F7F] bg-slate-950 text-white" : "border-slate-200 bg-white"}`}>
-      {featured && <span className="mb-5 inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Most Popular</span>}
-      <h3 className="text-2xl font-semibold">{name}</h3>
-      <p className="mt-2 text-3xl font-semibold">{price}</p>
-      <ul className={`mt-6 space-y-3 text-sm ${featured ? "text-slate-200" : "text-slate-600"}`}>
+    <div className={`rounded-3xl border p-7 ${featured ? "border-sky-300/30 bg-sky-400/10 shadow-[0_0_60px_rgba(56,189,248,0.16)]" : "border-white/10 bg-white/[0.05]"} backdrop-blur-xl`}>
+      {featured && <span className="mb-5 inline-flex rounded-full bg-sky-400/15 px-3 py-1 text-xs font-semibold text-sky-300 ring-1 ring-sky-300/20">Most Popular</span>}
+      <h3 className="text-2xl font-semibold text-white">{name}</h3>
+      <p className="mt-2 text-3xl font-semibold text-white">{price}</p>
+      <ul className="mt-6 space-y-3 text-sm text-slate-300">
         {items.map((item) => (
           <li key={item} className="flex items-center gap-3">
-            <Check className="h-4 w-4 text-emerald-500" />
+            <Check className="h-4 w-4 text-emerald-400" />
             {item}
           </li>
         ))}
       </ul>
-      <Button href="/sign-up" variant={featured ? "blue" : "outline"} className={`mt-7 h-11 w-full ${featured ? "bg-white text-slate-950 hover:bg-slate-100" : ""}`}>
+      <Link href="/sign-up" className={`mt-7 inline-flex h-11 w-full items-center justify-center rounded-lg text-sm font-semibold transition ${featured ? "bg-white text-slate-950 hover:bg-slate-100" : "border border-white/10 bg-white/[0.04] text-white hover:bg-white/10"}`}>
         Start Free
-      </Button>
+      </Link>
     </div>
   );
 }
@@ -393,10 +426,10 @@ function Plan({ name, price, items, featured = false }: { name: string; price: s
 function FooterGroup({ title, links }: { title: string; links: string[] }) {
   return (
     <div>
-      <h3 className="text-sm font-semibold text-slate-950">{title}</h3>
+      <h3 className="text-sm font-semibold text-white">{title}</h3>
       <div className="mt-3 space-y-2">
         {links.map((link) => (
-          <a key={link} href={appUrl} className="block text-sm text-slate-500 hover:text-slate-950">
+          <a key={link} href={appUrl} className="block text-sm text-slate-400 transition hover:text-white">
             {link}
           </a>
         ))}
