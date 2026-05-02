@@ -50,18 +50,19 @@ export default async function HomePage() {
         </div>
       </header>
 
-      <section className="relative overflow-hidden border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-[1180px] px-6 pb-16 pt-16 lg:pb-24 lg:pt-22">
-          <div className="relative z-10 max-w-[760px]">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-[radial-gradient(circle_at_82%_18%,rgba(0,102,204,0.10),transparent_30%),linear-gradient(180deg,#ffffff_0%,#f7f9fc_100%)]">
+        <div className="mx-auto max-w-[1180px] px-6 pb-12 pt-14 lg:pb-18 lg:pt-20">
+          <div className="relative z-10 grid gap-10 lg:grid-cols-[0.9fr_0.72fr] lg:items-start">
+            <div>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-[#525F7F] shadow-sm">
               <Scale className="h-4 w-4" />
               Built for law firms, legal operations, and compliance teams
             </div>
-            <h1 className="text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-              Stop wondering if your document was seen.
+            <h1 className="max-w-3xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl lg:text-[76px] lg:leading-[0.95]">
+              Court-ready proof that your document was accessed.
             </h1>
             <p className="mt-6 max-w-2xl text-xl leading-9 text-slate-600">
-              Share confidential documents through private links and issue verifiable access certificates your client, partner, or IT team can independently check.
+              Share confidential legal documents, track every valid open, and issue independently verifiable access certificates with file hashes, event logs, and cryptographic signatures.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Button href="/sign-up" variant="blue" className="h-12 px-6 text-base">
@@ -73,16 +74,59 @@ export default async function HomePage() {
               </Button>
             </div>
             <p className="mt-4 text-sm font-medium text-slate-500">No credit card required. Private storage by default.</p>
+            <div className="mt-7 grid max-w-2xl gap-3 sm:grid-cols-4">
+              <HeroTrust icon={<Lock />} label="Private storage" />
+              <HeroTrust icon={<Fingerprint />} label="SHA-256 hash" />
+              <HeroTrust icon={<Signature />} label="Signed certificate" />
+              <HeroTrust icon={<ShieldCheck />} label="Verify page" />
+            </div>
+            </div>
+
+            <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-300/60">
+              <div className="rounded-2xl bg-slate-950 p-5 text-white">
+                <div className="flex items-start justify-between gap-5">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">Verified Access Certificate</p>
+                    <h2 className="mt-2 text-2xl font-semibold">BSC-2026-A19F42E3C0</h2>
+                  </div>
+                  <span className="rounded-full bg-emerald-400 px-3 py-1 text-xs font-semibold text-slate-950">Valid</span>
+                </div>
+                <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-sm font-semibold">Settlement_Agreement.pdf</p>
+                  <p className="mt-1 text-xs text-slate-300">Issued May 1, 2026 - 4 access events</p>
+                </div>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <MiniProof label="Document hash" value="d81f...19c4" />
+                  <MiniProof label="Event log hash" value="7c2a...92ee" />
+                  <MiniProof label="Signature" value="Ed25519 valid" />
+                  <MiniProof label="Verification" value="/verify/BSC..." />
+                </div>
+              </div>
+              <div className="mt-4 grid grid-cols-3 gap-3 text-center">
+                <div className="rounded-xl bg-slate-50 p-3">
+                  <p className="text-xl font-semibold text-slate-950">4</p>
+                  <p className="text-xs text-slate-500">Opens</p>
+                </div>
+                <div className="rounded-xl bg-slate-50 p-3">
+                  <p className="text-xl font-semibold text-slate-950">1</p>
+                  <p className="text-xs text-slate-500">Download</p>
+                </div>
+                <div className="rounded-xl bg-slate-50 p-3">
+                  <p className="text-xl font-semibold text-slate-950">UTC</p>
+                  <p className="text-xs text-slate-500">Timeline</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="mt-14 rounded-[28px] border border-slate-200 bg-slate-50 p-3 shadow-2xl shadow-slate-200/70">
+          <div className="mt-10 rounded-[28px] border border-slate-200 bg-white p-3 shadow-2xl shadow-slate-300/70">
             <Image
               src="/marketing/myfiles-hero.png"
               alt="BlinkSeal My Files dashboard"
               width={1400}
               height={820}
               priority
-              className="rounded-[20px] border border-slate-200 bg-white"
+              className="rounded-[20px] border border-slate-200 bg-white contrast-110 saturate-110"
             />
           </div>
         </div>
@@ -155,8 +199,8 @@ export default async function HomePage() {
             <span className="rounded-full bg-emerald-600 px-3 py-1 text-sm font-semibold text-white">Valid</span>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <HashCard icon={<Fingerprint />} label="Document SHA-256" value="d81f…19c4" />
-            <HashCard icon={<Shield />} label="Payload SHA-256" value="7c2a…92ee" />
+            <HashCard icon={<Fingerprint />} label="Document SHA-256" value="d81f...19c4" />
+            <HashCard icon={<Shield />} label="Payload SHA-256" value="7c2a...92ee" />
             <HashCard icon={<Clock3 />} label="Issued UTC" value="2026-05-01 19:42" />
             <HashCard icon={<Download />} label="Events included" value="4 opens / 1 download" />
           </div>
@@ -246,7 +290,7 @@ export default async function HomePage() {
           <FooterGroup title="Company" links={["Terms & Conditions", "Privacy policy", "Security & Compliance"]} />
         </div>
         <div className="border-t border-slate-200 px-6 py-5 text-center text-xs text-slate-400">
-          © 2026 BlinkSeal / Code10Rx LLC. All rights reserved.
+          (c) 2026 BlinkSeal / Code10Rx LLC. All rights reserved.
         </div>
       </footer>
     </main>
@@ -259,6 +303,24 @@ function TrustCard({ icon, title, body }: { icon: React.ReactNode; title: string
       <div className="mb-4 text-[#525F7F] [&_svg]:h-6 [&_svg]:w-6">{icon}</div>
       <h3 className="font-semibold text-slate-950">{title}</h3>
       <p className="mt-2 text-sm leading-6 text-slate-500">{body}</p>
+    </div>
+  );
+}
+
+function HeroTrust({ icon, label }: { icon: React.ReactNode; label: string }) {
+  return (
+    <div className="rounded-xl border border-slate-200 bg-white/85 p-3 shadow-sm">
+      <div className="mb-2 text-[#0066CC] [&_svg]:h-4 [&_svg]:w-4">{icon}</div>
+      <p className="text-xs font-semibold text-slate-700">{label}</p>
+    </div>
+  );
+}
+
+function MiniProof({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">{label}</p>
+      <p className="mt-1 font-mono text-xs text-white">{value}</p>
     </div>
   );
 }
