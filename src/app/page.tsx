@@ -1,6 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import {
   ArrowRight,
   Award,
@@ -22,16 +20,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/blinkseal/button";
 import { BrandMark } from "@/components/blinkseal/logo";
-import { hasClerkServerConfig } from "@/lib/clerk-config";
 
 const appUrl = "https://app.blinkseal.io";
 
-export default async function HomePage() {
-  if (hasClerkServerConfig()) {
-    const { userId } = await auth();
-    if (userId) redirect("/dashboard");
-  }
-
+export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#F7F8FA] text-slate-950">
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
