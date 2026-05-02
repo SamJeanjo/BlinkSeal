@@ -36,11 +36,8 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-xl">
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <span className="relative grid h-11 w-11 place-items-center rounded-2xl border border-sky-300/20 bg-white shadow-[0_0_34px_rgba(56,189,248,0.18)]">
-              <span className="absolute inset-0 rounded-2xl bg-sky-300/10 blur-md" />
-              <span className="relative grid h-9 w-9 place-items-center rounded-xl bg-white">
-                <LogoIcon size={29} />
-              </span>
+            <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-2xl border border-sky-300/20 bg-black shadow-[0_0_34px_rgba(56,189,248,0.18)]">
+              <LogoIcon size={76} variant="dark" className="max-w-none rounded-2xl" />
             </span>
             <span className="text-xl tracking-wide text-white">
               <span className="font-normal">Blink</span>
@@ -290,11 +287,8 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <span className="relative grid h-11 w-11 place-items-center rounded-2xl border border-sky-300/20 bg-white shadow-[0_0_34px_rgba(56,189,248,0.18)]">
-                <span className="absolute inset-0 rounded-2xl bg-sky-300/10 blur-md" />
-                <span className="relative grid h-9 w-9 place-items-center rounded-xl bg-white">
-                  <LogoIcon size={29} />
-                </span>
+              <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-2xl border border-sky-300/20 bg-black shadow-[0_0_34px_rgba(56,189,248,0.18)]">
+                <LogoIcon size={76} variant="dark" className="max-w-none rounded-2xl" />
               </span>
               <span className="text-xl tracking-wide text-white"><span>Blink</span><span className="font-semibold">Seal</span></span>
             </Link>

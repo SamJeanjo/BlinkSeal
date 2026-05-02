@@ -1,26 +1,41 @@
 import Image from "next/image";
 
-const logoUrl =
-  "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/697acbc8167be31657691f90/68f25446c_BLINKSEAL_Ogo.png";
+type LogoVariant = "dark" | "light";
 
-export function LogoIcon({ size = 36, pulse = false }: { size?: number; pulse?: boolean }) {
+const logoSources: Record<LogoVariant, string> = {
+  dark: "/brand/logo.png",
+  light: "/brand/logo_white.png"
+};
+
+export function LogoIcon({
+  size = 36,
+  pulse = false,
+  variant = "light",
+  className = ""
+}: {
+  size?: number;
+  pulse?: boolean;
+  variant?: LogoVariant;
+  className?: string;
+}) {
   return (
     <Image
-      src={logoUrl}
+      src={logoSources[variant]}
       alt="BlinkSeal"
       width={size}
       height={size}
-      className={pulse ? "[animation:shieldPulse_1.8s_ease-in-out_infinite]" : ""}
+      className={`${pulse ? "[animation:shieldPulse_1.8s_ease-in-out_infinite]" : ""} ${className}`}
       style={{ objectFit: "contain" }}
-      unoptimized
     />
   );
 }
 
-export function BrandMark() {
+export function BrandMark({ variant = "light" }: { variant?: LogoVariant }) {
   return (
     <div className="flex items-center gap-2.5">
-      <LogoIcon size={36} />
+      <span className={`grid h-9 w-9 place-items-center overflow-hidden rounded-xl ${variant === "light" ? "bg-white" : "bg-black"}`}>
+        <LogoIcon size={58} variant={variant} className="max-w-none rounded-xl" />
+      </span>
       <span className="text-xl tracking-wide text-slate-900">
         <span className="font-normal">Blink</span>
         <span className="font-semibold">Seal</span>
