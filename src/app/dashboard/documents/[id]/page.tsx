@@ -21,6 +21,7 @@ import { createShareLink, issueAccessCertificate, recordTestView, revokeShareLin
 import { Button } from "@/components/blinkseal/button";
 import { CopyLink } from "@/components/blinkseal/copy-link";
 import { ProofToolbar } from "@/components/blinkseal/proof-toolbar";
+import { RecipientMessage } from "@/components/blinkseal/recipient-message";
 import { StatusBadge } from "@/components/blinkseal/status-badge";
 import { requireCurrentUser } from "@/lib/auth/getCurrentUser";
 import { getDocumentForOwner } from "@/lib/data";
@@ -199,7 +200,7 @@ export default async function DocumentDetailPage({ params }: { params: Promise<{
             <h2 className="text-2xl font-semibold text-slate-950">{link?.title || document.file_name}</h2>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
               <Shield className="h-4 w-4" />
-              Client View (No Watermark)
+              {link?.allow_download ? "Client View (Download Allowed)" : "Client View (View Only)"}
             </div>
           </div>
           {link && <StatusBadge revoked={link.revoked} expiresAt={link.expires_at} />}
@@ -218,10 +219,19 @@ export default async function DocumentDetailPage({ params }: { params: Promise<{
             </details>
             <div className="mt-5 flex flex-wrap gap-3">
               <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">Expiration: {formatDate(link.expires_at)}</span>
-              <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">Download: {link.allow_download ? "Allowed" : "Button hidden"}</span>
-              <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">Watermark: Off</span>
+              <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">Download: {link.allow_download ? "Allowed" : "Blocked"}</span>
+              <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">Access: {link.allow_download ? "Preview + download" : "View-only"}</span>
               <span className="rounded-md border border-slate-950 px-3 py-1 text-sm font-semibold">View limit: {link.view_limit ?? "Unlimited"}</span>
             </div>
+            <RecipientMessage
+              shareUrl={shareUrl}
+              displayUrl={displayUrl}
+              fileName={document.file_name}
+              title={link.title}
+              expiresAt={link.expires_at}
+              allowDownload={link.allow_download}
+              viewLimit={link.view_limit}
+            />
           </div>
         ) : (
           <form action={createAction} className="mt-8 space-y-8">

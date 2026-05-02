@@ -334,7 +334,7 @@ function ProductMockup() {
     {
       name: "Settlement_Agreement_Confidential.pdf",
       status: "Viewed today",
-      meta: "Download blocked - Watermark enabled",
+      meta: "View-only access - Download blocked",
       opens: "Opened 4 times",
       activity: "Last activity 1 hour ago"
     },

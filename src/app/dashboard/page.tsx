@@ -13,6 +13,7 @@ type ShareLinkWithEvents = {
   token: string;
   revoked: boolean;
   expires_at: string | null;
+  allow_download: boolean;
   created_at: string;
   view_events?: { id: string; viewed_at: string }[];
 };
@@ -135,7 +136,13 @@ export default async function DashboardPage() {
                     <p className="mb-4 truncate font-mono text-base text-[#52627A]">
                       {latestLink ? shortShareUrl(latestLink.token) : "Create a secure link to start tracking access"}
                     </p>
-                    <p className="mb-4 text-base text-slate-400">Download allowed - No watermark</p>
+                    <p className="mb-4 text-base text-slate-400">
+                      {latestLink
+                        ? latestLink.allow_download
+                          ? "Download allowed"
+                          : "View-only access - download blocked"
+                        : "No access rules set yet"}
+                    </p>
                     <div className="flex flex-wrap items-center gap-7 text-sm text-slate-400">
                       <span className="inline-flex items-center gap-2">
                         <Eye className="h-4 w-4" />
