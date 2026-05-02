@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -10,6 +9,7 @@ import {
   FileCheck2,
   FileLock2,
   Fingerprint,
+  Gavel,
   KeyRound,
   Lock,
   Scale,
@@ -65,7 +65,7 @@ export default function HomePage() {
       </header>
 
       <section className="relative z-10">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.02fr_0.98fr] lg:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 pb-14 pt-16 lg:grid-cols-[0.98fr_1.02fr] lg:pb-16 lg:pt-18">
           <div>
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-semibold text-slate-300 shadow-[0_0_30px_rgba(56,189,248,0.08)] backdrop-blur-xl">
               <Scale className="h-4 w-4 text-sky-300" />
@@ -74,10 +74,10 @@ export default function HomePage() {
             <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-[78px] lg:leading-[0.94]">
               Court-ready proof that your document was accessed.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
               Share confidential legal documents, track every open, and generate verifiable access certificates with timestamps, hashes, and cryptographic signatures.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/sign-up" className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-sky-400 px-6 text-base font-semibold text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.25)] transition hover:-translate-y-0.5 hover:bg-sky-300">
                 Get Started Free
                 <ArrowRight className="h-5 w-5" />
@@ -87,7 +87,7 @@ export default function HomePage() {
               </a>
             </div>
             <p className="mt-4 text-sm font-medium text-slate-400">No credit card required. Built for confidential client work.</p>
-            <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-4">
+            <div className="mt-7 grid max-w-2xl gap-3 sm:grid-cols-4">
               <HeroTrust icon={<Lock />} label="Private storage" />
               <HeroTrust icon={<Fingerprint />} label="SHA-256 hash" />
               <HeroTrust icon={<Signature />} label="Signed certificate" />
@@ -131,31 +131,20 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 pb-20">
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-3 shadow-[0_0_60px_rgba(56,189,248,0.10)] backdrop-blur-xl">
-            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-950">
-              <Image
-                src="/marketing/myfiles-hero.png"
-                alt="BlinkSeal My Files dashboard"
-                width={1400}
-                height={820}
-                priority
-                className="w-full opacity-90 contrast-110 saturate-75"
-              />
-            </div>
-          </div>
+        <div className="mx-auto max-w-7xl px-6 pb-18">
+          <ProductMockup />
         </div>
       </section>
 
       <section id="product" className="relative z-10 mx-auto max-w-7xl px-6 py-20">
         <div className="grid gap-4 md:grid-cols-3">
-          <TrustCard icon={<FileCheck2 />} title="Audit-ready exports" body="Generate signed certificate records with hashes, timestamps, and canonical evidence bundles." />
-          <TrustCard icon={<ShieldCheck />} title="Security-first access" body="Private storage, server-side validation, scoped access, and production security headers." />
+          <TrustCard icon={<FileCheck2 />} title="Audit-ready exports" body="Generate signed certificate records with hashes, timestamps, UTC event history, and canonical evidence bundles." />
+          <TrustCard icon={<ShieldCheck />} title="Security-first access" body="Private storage, server-side validation, scoped access, no public files, and production security headers." />
           <TrustCard icon={<Signature />} title="Cryptographic signatures" body="Ed25519-signed certificate payloads give IT teams a verification path beyond screenshots." />
         </div>
 
         <div className="mt-24 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <SectionIntro eyebrow="Secure document sharing" title="Verifiable proof of access, not a hopeful email attachment." body="BlinkSeal gives legal teams a controlled link, a live proof timeline, and a signed certificate that captures what happened." />
+          <SectionIntro eyebrow="Secure document sharing" title="Verifiable proof of access, not a hopeful email attachment." body="BlinkSeal gives legal teams a controlled link, a live proof timeline, and a signed evidence bundle that captures what happened without making files public." />
           <div className="grid gap-4 sm:grid-cols-3">
             <FeatureCard icon={<FileLock2 />} title="Secure Links" body="Revocable links with expiration, view limits, one-time access, and private signed URLs." />
             <FeatureCard icon={<Eye />} title="Real-Time Tracking" body="Record opens, downloads, IP, device, browser, referrer, and UTC timestamps." />
@@ -238,16 +227,42 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="relative z-10 border-y border-white/10 bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.10),transparent_45%),rgba(255,255,255,0.03)]">
+        <div className="mx-auto max-w-7xl px-6 py-18">
+          <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
+            <SectionIntro
+              eyebrow="How verification works"
+              title="A simple chain of evidence IT can validate."
+              body="Each certificate ties the original file to the access log, then signs the canonical payload. The verification page checks that chain independently."
+            />
+            <div className={`${card} p-5`}>
+              <div className="grid gap-3 md:grid-cols-4">
+                <VerifyStep icon={<Fingerprint />} title="Document hash" body="SHA-256 fingerprint of the uploaded file." />
+                <VerifyStep icon={<Clock3 />} title="Event hash" body="Canonical hash of opens, downloads, IP, and UTC timestamps." />
+                <VerifyStep icon={<Signature />} title="Signature" body="Server-side Ed25519 signature over the evidence payload." />
+                <VerifyStep icon={<BadgeCheck />} title="Public verify" body="Certificate URL confirms the payload has not changed." />
+              </div>
+              <div className="mt-5 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 p-4 text-sm leading-6 text-emerald-100">
+                Retention-ready records include private storage path, file hash, signed evidence bundle, UTC timestamps, revocation state, and proof that the file was never exposed through a public bucket.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="pricing" className="relative z-10 border-y border-white/10 bg-white/[0.03]">
-        <div className="mx-auto max-w-7xl px-6 py-24">
+        <div className="mx-auto max-w-7xl px-6 py-18">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-300">Simple, transparent pricing</p>
             <h2 className="mx-auto mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">Start free. Upgrade when proof becomes workflow.</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-400">
+              Every plan keeps documents private by default. Paid plans add longer retention, signed evidence exports, and certificate verification for legal and IT review.
+            </p>
           </div>
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
             <Plan name="Free" price="$0/mo" items={["3 secure links/mo", "Basic access tracking", "7-day history"]} />
-            <Plan featured name="Pro" price="$29/mo" items={["Secure links", "Access tracking", "Export proof certificates", "Clean downloads", "Unlimited views", "Retention controls"]} />
-            <Plan name="Business" price="$99/mo" items={["All Pro features", "Up to 7 users", "Shared team workspace", "Admin controls"]} />
+            <Plan featured name="Pro" price="$29/mo" items={["Secure links", "Access tracking", "Signed proof certificates", "Private signed URLs", "Unlimited views", "Retention controls"]} />
+            <Plan name="Business" price="$99/mo" items={["All Pro features", "Up to 7 users", "Shared workspace", "Admin controls"]} />
           </div>
         </div>
       </section>
@@ -294,12 +309,116 @@ export default function HomePage() {
   );
 }
 
+function ProductMockup() {
+  const rows = [
+    {
+      name: "Settlement_Agreement_Confidential.pdf",
+      status: "Viewed today",
+      meta: "Download blocked - Watermark enabled",
+      opens: "Opened 4 times",
+      activity: "Last activity 1 hour ago"
+    },
+    {
+      name: "Offer_Letter_Director_of_Legal.pdf",
+      status: "Active",
+      meta: "Download blocked - Private signed URL",
+      opens: "Opened once",
+      activity: "Last activity 3 days ago"
+    },
+    {
+      name: "NDA_Johnson_&_Partners_2026.pdf",
+      status: "Active",
+      meta: "No public file - Certificate ready",
+      opens: "Opened 11 times",
+      activity: "Last activity 22 days ago"
+    }
+  ];
+
+  return (
+    <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(135deg,rgba(15,23,42,0.92),rgba(2,6,23,0.96))] p-4 shadow-[0_0_80px_rgba(56,189,248,0.12)] backdrop-blur-xl">
+      <div className="absolute right-8 top-6 h-24 w-24 rounded-full bg-sky-400/10 blur-2xl" />
+      <div className="absolute bottom-0 left-20 h-20 w-64 rounded-full bg-violet-500/10 blur-2xl" />
+      <div className="relative rounded-[1.4rem] border border-white/10 bg-[#030712] p-5">
+        <div className="mb-5 flex flex-col gap-4 border-b border-white/10 pb-5 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
+              <Gavel className="h-4 w-4" />
+              Legal workspace
+            </div>
+            <h3 className="mt-2 text-2xl font-semibold tracking-tight text-white">My Files</h3>
+            <p className="mt-1 text-sm text-slate-400">Private documents with retained proof records</p>
+          </div>
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <DashboardStat value="7" label="Active" />
+            <DashboardStat value="2" label="Viewed today" />
+            <DashboardStat value="0" label="Public files" />
+          </div>
+        </div>
+
+        <div className="mb-4 flex flex-wrap gap-2">
+          {["Active", "Expiring", "All", "Expired", "Revoked"].map((tab, index) => (
+            <span key={tab} className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${index === 0 ? "bg-white text-slate-950" : "bg-white/[0.05] text-slate-400 ring-1 ring-white/10"}`}>
+              {tab}
+            </span>
+          ))}
+        </div>
+
+        <div className="space-y-3">
+          {rows.map((row) => (
+            <div key={row.name} className="grid gap-4 rounded-2xl border border-white/10 bg-white/[0.045] p-4 md:grid-cols-[1fr_auto] md:items-center">
+              <div className="flex gap-4">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-sky-300/20 bg-sky-400/10 text-sky-300">
+                  <FileCheck2 className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="font-semibold text-white">{row.name}</p>
+                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${row.status === "Viewed today" ? "bg-amber-400/10 text-amber-200 ring-1 ring-amber-300/20" : "bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-400/20"}`}>
+                      {row.status}
+                    </span>
+                  </div>
+                  <p className="mt-1 font-mono text-xs text-slate-500">app.blinkseal.io/?c=AHKZDD</p>
+                  <p className="mt-2 text-xs text-slate-400">{row.meta}</p>
+                  <p className="mt-1 text-xs text-slate-500">{row.opens} - {row.activity}</p>
+                </div>
+              </div>
+              <Link href="/sign-up" className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 text-sm font-semibold text-white transition hover:bg-white/10">
+                View proof
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DashboardStat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="min-w-24 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2">
+      <p className="text-lg font-semibold text-white">{value}</p>
+      <p className="text-[11px] text-slate-500">{label}</p>
+    </div>
+  );
+}
+
 function SectionIntro({ eyebrow, title, body }: { eyebrow?: string; title: string; body?: string }) {
   return (
     <div className="max-w-3xl">
       {eyebrow && <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-300">{eyebrow}</p>}
       <h2 className="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl">{title}</h2>
       {body && <p className="mt-4 text-lg leading-8 text-slate-400">{body}</p>}
+    </div>
+  );
+}
+
+function VerifyStep({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+      <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl border border-sky-300/20 bg-sky-400/10 text-sky-300">{icon}</div>
+      <h3 className="font-semibold text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-400">{body}</p>
     </div>
   );
 }
